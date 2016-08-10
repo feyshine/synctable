@@ -65,7 +65,7 @@ public class FileUtil {
 	
 	
 	private static  String getDates () {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:MM;ss");
+		SimpleDateFormat format = new SimpleDateFormat("“yyyy-MM-dd HH:mm:ss");
 		String dateString = format.format(new Date());
 		return dateString;
 		
