@@ -42,7 +42,6 @@ public class FileUtil {
 			FileWriter fstream = new FileWriter(path, true);
 			BufferedWriter out = new BufferedWriter(fstream);
 
-			out.newLine();
 			out.append(getDates());
 			out.newLine();
 			out.append(str);

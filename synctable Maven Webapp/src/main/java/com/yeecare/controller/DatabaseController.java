@@ -192,7 +192,6 @@ public class DatabaseController {
 
 		Long end = new Date().getTime();
 		logger.info("do bussiness time:" + (end - begin) / 1000 + " ms");
-		instance.write("do bussiness time:" + (end - begin) / 1000 + " ms");
 	}
 
 }
