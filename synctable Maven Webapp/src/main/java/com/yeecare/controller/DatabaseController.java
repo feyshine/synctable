@@ -130,12 +130,10 @@ public class DatabaseController {
 		// save new data into slave database
 		if (masterList.size() > 0) {
 			logger.info("masterList.size = " + masterList.size());
-			instance.write("masterList.size = " + masterList.size());
 			List<Bloodglucose> insertDataList = new ArrayList<Bloodglucose>();
 
 			for (TempCrmBloodglucose newBloodglucose : masterList) {
 				logger.info("新数据： " + newBloodglucose.getcId());
-				instance.write("新数据： " + newBloodglucose.getcId());
 				Bloodglucose newBloodglucose2 = new Bloodglucose();
 				newBloodglucose2.setcId(newBloodglucose.getcId());
 				newBloodglucose2.setcUid(newBloodglucose.getcUid());
@@ -175,7 +173,6 @@ public class DatabaseController {
 		
 		}else {
 			logger.info("暂无新数据！");
-			instance.write("暂无新数据！");
 		}
 
 		// delete master data
@@ -191,7 +188,6 @@ public class DatabaseController {
 			}
 		} else {
 			logger.info("暂无数据删除");
-			instance.write("暂无数据删除");
 		}
 
 		Long end = new Date().getTime();
