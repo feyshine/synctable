@@ -16,6 +16,7 @@
     <result column="C_STATE" property="cState" jdbcType="INTEGER" />
     <result column="C_PUSH" property="cPush" jdbcType="INTEGER" />
     <result column="C_MSGID" property="cMsgid" jdbcType="VARCHAR" />
+    <result column="C_Owner" property="cOwner" jdbcType="INTEGER" />
     <result column="C_IsDelete" property="cIsdelete" jdbcType="INTEGER" />
     <result column="C_Creator" property="cCreator" jdbcType="VARCHAR" />
     <result column="C_CreateTime" property="cCreatetime" jdbcType="TIMESTAMP" />
@@ -25,8 +26,8 @@
   </resultMap>
   <sql id="Base_Column_List" >
     C_ID, C_UID, C_DID, C_DSYNC, C_TIME, C_GLU, C_FLAG, C_RES, C_CTYPE, C_UPLOAD, C_ClientIP, 
-    C_STATE, C_PUSH, C_MSGID, C_IsDelete, C_Creator, C_CreateTime, C_Changer, C_ChangeTime, 
-    C_Remark
+    C_STATE, C_PUSH, C_MSGID, C_Owner, C_IsDelete, C_Creator, C_CreateTime, C_Changer, 
+    C_ChangeTime, C_Remark
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -34,7 +35,7 @@
     from bloodglucose
     where C_ID = #{cId,jdbcType=VARCHAR}
   </select>
-    <select id="query" resultMap="BaseResultMap">
+  <select id="query" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from bloodglucose where C_CreateTime > subdate(current_timestamp,interval 2 hour)
@@ -43,22 +44,24 @@
     delete from bloodglucose
     where C_ID = #{cId,jdbcType=VARCHAR}
   </delete>
-   <insert id="insert" parameterType="com.yeecare.slave.pojo.Bloodglucose" >
+  <insert id="insert" parameterType="com.yeecare.slave.pojo.Bloodglucose" >
     insert into bloodglucose (C_ID, C_UID, C_DID, 
       C_DSYNC, C_TIME, C_GLU, 
       C_FLAG, C_RES, C_CTYPE, 
       C_UPLOAD, C_ClientIP, C_STATE, 
-      C_PUSH, C_MSGID, C_IsDelete, 
-      C_Creator, C_CreateTime, C_Changer, 
-      C_ChangeTime, C_Remark)
+      C_PUSH, C_MSGID, C_Owner, 
+      C_IsDelete, C_Creator, C_CreateTime, 
+      C_Changer, C_ChangeTime, C_Remark
+      )
     values (#{cId,jdbcType=VARCHAR}, #{cUid,jdbcType=VARCHAR}, #{cDid,jdbcType=VARCHAR}, 
       #{cDsync,jdbcType=BIGINT}, #{cTime,jdbcType=TIMESTAMP}, #{cGlu,jdbcType=DECIMAL}, 
       #{cFlag,jdbcType=SMALLINT}, #{cRes,jdbcType=SMALLINT}, #{cCtype,jdbcType=SMALLINT}, 
       #{cUpload,jdbcType=SMALLINT}, #{cClientip,jdbcType=VARCHAR}, #{cState,jdbcType=INTEGER}, 
-      #{cPush,jdbcType=INTEGER}, #{cMsgid,jdbcType=VARCHAR}, #{cIsdelete,jdbcType=INTEGER}, 
-      #{cCreator,jdbcType=VARCHAR}, #{cCreatetime,jdbcType=TIMESTAMP}, #{cChanger,jdbcType=VARCHAR}, 
-      #{cChangetime,jdbcType=TIMESTAMP}, #{cRemark,jdbcType=VARCHAR})
-  </insert> 
+      #{cPush,jdbcType=INTEGER}, #{cMsgid,jdbcType=VARCHAR}, #{cOwner,jdbcType=INTEGER}, 
+      #{cIsdelete,jdbcType=INTEGER}, #{cCreator,jdbcType=VARCHAR}, #{cCreatetime,jdbcType=TIMESTAMP}, 
+      #{cChanger,jdbcType=VARCHAR}, #{cChangetime,jdbcType=TIMESTAMP}, #{cRemark,jdbcType=VARCHAR}
+      )
+  </insert>
   <insert id="batchSave" parameterType="java.util.ArrayList">
   	insert into bloodglucose (C_ID, C_UID, C_DID, 
       C_DSYNC, C_TIME, C_GLU, 
@@ -74,15 +77,15 @@
       #{obj.cDsync,jdbcType=BIGINT}, #{obj.cTime,jdbcType=TIMESTAMP}, #{obj.cGlu,jdbcType=DECIMAL}, 
       #{obj.cFlag,jdbcType=SMALLINT}, #{obj.cRes,jdbcType=SMALLINT}, #{obj.cCtype,jdbcType=SMALLINT}, 
       #{obj.cUpload,jdbcType=SMALLINT}, #{obj.cClientip,jdbcType=VARCHAR}, #{obj.cState,jdbcType=INTEGER}, 
-      #{obj.cPush,jdbcType=INTEGER}, #{obj.cMsgid,jdbcType=VARCHAR}, #{obj.cIsdelete,jdbcType=INTEGER}, 
-      #{obj.cCreator,jdbcType=VARCHAR}, #{obj.cCreatetime,jdbcType=TIMESTAMP}, #{obj.cChanger,jdbcType=VARCHAR}, 
-      #{obj.cChangetime,jdbcType=TIMESTAMP}, #{obj.cRemark,jdbcType=VARCHAR})
+      #{obj.cPush,jdbcType=INTEGER}, #{obj.cMsgid,jdbcType=VARCHAR}, #{obj.cOwner,jdbcType=INTEGER}, 
+	  #{obj.cIsdelete,jdbcType=INTEGER}, #{obj.cCreator,jdbcType=VARCHAR}, #{obj.cCreatetime,jdbcType=TIMESTAMP}, 
+	  #{obj.cChanger,jdbcType=VARCHAR}, #{obj.cChangetime,jdbcType=TIMESTAMP}, #{obj.cRemark,jdbcType=VARCHAR})
       
      </foreach>
   </insert>
   <insert id="insertSelective" parameterType="com.yeecare.slave.pojo.Bloodglucose" >
     insert into bloodglucose
-    <trim prefix="(" suffix= ")" suffixOverrides="," >
+    <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="cId != null" >
         C_ID,
       </if>
@@ -125,6 +128,9 @@
       <if test="cMsgid != null" >
         C_MSGID,
       </if>
+      <if test="cOwner != null" >
+        C_Owner,
+      </if>
       <if test="cIsdelete != null" >
         C_IsDelete,
       </if>
@@ -144,7 +150,7 @@
         C_Remark,
       </if>
     </trim>
-    <trim prefix="values (" suffix= ")" suffixOverrides="," >
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="cId != null" >
         #{cId,jdbcType=VARCHAR},
       </if>
@@ -152,7 +158,7 @@
         #{cUid,jdbcType=VARCHAR},
       </if>
       <if test="cDid != null" >
-        #{cDid,jdbcType=VARCHAR},          
+        #{cDid,jdbcType=VARCHAR},
       </if>
       <if test="cDsync != null" >
         #{cDsync,jdbcType=BIGINT},
@@ -186,6 +192,9 @@
       </if>
       <if test="cMsgid != null" >
         #{cMsgid,jdbcType=VARCHAR},
+      </if>
+      <if test="cOwner != null" >
+        #{cOwner,jdbcType=INTEGER},
       </if>
       <if test="cIsdelete != null" >
         #{cIsdelete,jdbcType=INTEGER},
@@ -249,6 +258,9 @@
       <if test="cMsgid != null" >
         C_MSGID = #{cMsgid,jdbcType=VARCHAR},
       </if>
+      <if test="cOwner != null" >
+        C_Owner = #{cOwner,jdbcType=INTEGER},
+      </if>
       <if test="cIsdelete != null" >
         C_IsDelete = #{cIsdelete,jdbcType=INTEGER},
       </if>
@@ -285,6 +297,7 @@
       C_STATE = #{cState,jdbcType=INTEGER},
       C_PUSH = #{cPush,jdbcType=INTEGER},
       C_MSGID = #{cMsgid,jdbcType=VARCHAR},
+      C_Owner = #{cOwner,jdbcType=INTEGER},
       C_IsDelete = #{cIsdelete,jdbcType=INTEGER},
       C_Creator = #{cCreator,jdbcType=VARCHAR},
       C_CreateTime = #{cCreatetime,jdbcType=TIMESTAMP},

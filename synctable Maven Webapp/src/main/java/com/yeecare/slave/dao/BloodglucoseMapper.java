@@ -16,8 +16,8 @@ public interface BloodglucoseMapper {
     int updateByPrimaryKeySelective(Bloodglucose record);
 
     int updateByPrimaryKey(Bloodglucose record);
-    
-    List<Bloodglucose> query();
+	
+	List<Bloodglucose> query();
     
     int batchSave(List<Bloodglucose> list);
 }

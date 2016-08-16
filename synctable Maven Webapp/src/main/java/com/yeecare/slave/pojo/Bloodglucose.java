@@ -32,6 +32,8 @@ public class Bloodglucose {
 
     private String cMsgid;
 
+    private Integer cOwner;
+
     private Integer cIsdelete;
 
     private String cCreator;
@@ -154,6 +156,14 @@ public class Bloodglucose {
 
     public void setcMsgid(String cMsgid) {
         this.cMsgid = cMsgid == null ? null : cMsgid.trim();
+    }
+
+    public Integer getcOwner() {
+        return cOwner;
+    }
+
+    public void setcOwner(Integer cOwner) {
+        this.cOwner = cOwner;
     }
 
     public Integer getcIsdelete() {
