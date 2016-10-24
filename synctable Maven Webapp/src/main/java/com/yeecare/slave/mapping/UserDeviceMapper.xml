@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yeecare.slave.dao.UserDeviceMapper" >
+  <resultMap id="BaseResultMap" type="com.yeecare.slave.pojo.UserDevice" >
+    <id column="C_ID" property="cId" jdbcType="VARCHAR" />
+    <result column="C_UID" property="cUid" jdbcType="VARCHAR" />
+    <result column="C_DID" property="cDid" jdbcType="VARCHAR" />
+    <result column="C_IsDelete" property="cIsdelete" jdbcType="INTEGER" />
+    <result column="C_BindTime" property="cBindtime" jdbcType="TIMESTAMP" />
+    <result column="C_Creator" property="cCreator" jdbcType="VARCHAR" />
+    <result column="C_CreateTime" property="cCreatetime" jdbcType="TIMESTAMP" />
+    <result column="C_Changer" property="cChanger" jdbcType="VARCHAR" />
+    <result column="C_ChangeTime" property="cChangetime" jdbcType="TIMESTAMP" />
+    <result column="C_Remark" property="cRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    C_ID, C_UID, C_DID, C_IsDelete, C_BindTime, C_Creator, C_CreateTime, C_Changer, C_ChangeTime, 
+    C_Remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_device
+    where C_ID = #{cId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByDeviceId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_device
+    where C_DID = #{cDid,jdbcType=VARCHAR} and C_IsDelete = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_device
+    where C_ID = #{cId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yeecare.slave.pojo.UserDevice" >
+    insert into user_device (C_ID, C_UID, C_DID, 
+      C_IsDelete, C_BindTime, C_Creator, 
+      C_CreateTime, C_Changer, C_ChangeTime, 
+      C_Remark)
+    values (#{cId,jdbcType=VARCHAR}, #{cUid,jdbcType=VARCHAR}, #{cDid,jdbcType=VARCHAR}, 
+      #{cIsdelete,jdbcType=INTEGER}, #{cBindtime,jdbcType=TIMESTAMP}, #{cCreator,jdbcType=VARCHAR}, 
+      #{cCreatetime,jdbcType=TIMESTAMP}, #{cChanger,jdbcType=VARCHAR}, #{cChangetime,jdbcType=TIMESTAMP}, 
+      #{cRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yeecare.slave.pojo.UserDevice" >
+    insert into user_device
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        C_ID,
+      </if>
+      <if test="cUid != null" >
+        C_UID,
+      </if>
+      <if test="cDid != null" >
+        C_DID,
+      </if>
+      <if test="cIsdelete != null" >
+        C_IsDelete,
+      </if>
+      <if test="cBindtime != null" >
+        C_BindTime,
+      </if>
+      <if test="cCreator != null" >
+        C_Creator,
+      </if>
+      <if test="cCreatetime != null" >
+        C_CreateTime,
+      </if>
+      <if test="cChanger != null" >
+        C_Changer,
+      </if>
+      <if test="cChangetime != null" >
+        C_ChangeTime,
+      </if>
+      <if test="cRemark != null" >
+        C_Remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        #{cId,jdbcType=VARCHAR},
+      </if>
+      <if test="cUid != null" >
+        #{cUid,jdbcType=VARCHAR},
+      </if>
+      <if test="cDid != null" >
+        #{cDid,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsdelete != null" >
+        #{cIsdelete,jdbcType=INTEGER},
+      </if>
+      <if test="cBindtime != null" >
+        #{cBindtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCreator != null" >
+        #{cCreator,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreatetime != null" >
+        #{cCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cChanger != null" >
+        #{cChanger,jdbcType=VARCHAR},
+      </if>
+      <if test="cChangetime != null" >
+        #{cChangetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cRemark != null" >
+        #{cRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yeecare.slave.pojo.UserDevice" >
+    update user_device
+    <set >
+      <if test="cUid != null" >
+        C_UID = #{cUid,jdbcType=VARCHAR},
+      </if>
+      <if test="cDid != null" >
+        C_DID = #{cDid,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsdelete != null" >
+        C_IsDelete = #{cIsdelete,jdbcType=INTEGER},
+      </if>
+      <if test="cBindtime != null" >
+        C_BindTime = #{cBindtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCreator != null" >
+        C_Creator = #{cCreator,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreatetime != null" >
+        C_CreateTime = #{cCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cChanger != null" >
+        C_Changer = #{cChanger,jdbcType=VARCHAR},
+      </if>
+      <if test="cChangetime != null" >
+        C_ChangeTime = #{cChangetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cRemark != null" >
+        C_Remark = #{cRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where C_ID = #{cId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yeecare.slave.pojo.UserDevice" >
+    update user_device
+    set C_UID = #{cUid,jdbcType=VARCHAR},
+      C_DID = #{cDid,jdbcType=VARCHAR},
+      C_IsDelete = #{cIsdelete,jdbcType=INTEGER},
+      C_BindTime = #{cBindtime,jdbcType=TIMESTAMP},
+      C_Creator = #{cCreator,jdbcType=VARCHAR},
+      C_CreateTime = #{cCreatetime,jdbcType=TIMESTAMP},
+      C_Changer = #{cChanger,jdbcType=VARCHAR},
+      C_ChangeTime = #{cChangetime,jdbcType=TIMESTAMP},
+      C_Remark = #{cRemark,jdbcType=VARCHAR}
+    where C_ID = #{cId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -8,6 +8,10 @@ public class Bloodglucose {
 
     private String cUid;
 
+    private String cUserid;
+
+    private String cCid;
+
     private String cDid;
 
     private Long cDsync;
@@ -60,6 +64,22 @@ public class Bloodglucose {
 
     public void setcUid(String cUid) {
         this.cUid = cUid == null ? null : cUid.trim();
+    }
+
+    public String getcUserid() {
+        return cUserid;
+    }
+
+    public void setcUserid(String cUserid) {
+        this.cUserid = cUserid == null ? null : cUserid.trim();
+    }
+
+    public String getcCid() {
+        return cCid;
+    }
+
+    public void setcCid(String cCid) {
+        this.cCid = cCid == null ? null : cCid.trim();
     }
 
     public String getcDid() {
